@@ -213,8 +213,8 @@ stages:
             displayName: Deploy Function App [DEV]
             inputs:
               azureSubscription: $(AZURE_SUBSCRIPTION)
-              appName: "${{variables.DEV_WEB_APP_NAME}}-fn-project"
-              imageName: "${{variables.DEV_CONTAINER_NAMESPACE}}/project:$(Build.BuildId)"
+              appName: "${{variables.DEV_WEB_APP_NAME}}-fn-iuv-generator"
+              imageName: "${{variables.DEV_CONTAINER_NAMESPACE}}/iuv-generator:$(Build.BuildId)"
               slotName: production
 
           - script: |
@@ -293,6 +293,6 @@ stages:
             condition: in('${{ parameters.ENV }}', 'uat')
             inputs:
               azureSubscription: $(AZURE_SUBSCRIPTION)
-              appName: "${{variables.UAT_WEB_APP_NAME}}-fn-project}"
-              imageName: "${{variables.UAT_CONTAINER_NAMESPACE}}/project:$(Build.BuildId)"
+              appName: "${{variables.UAT_WEB_APP_NAME}}-fn-iuv-generator}"
+              imageName: "${{variables.UAT_CONTAINER_NAMESPACE}}/iuv-generator:$(Build.BuildId)"
               slotName: production

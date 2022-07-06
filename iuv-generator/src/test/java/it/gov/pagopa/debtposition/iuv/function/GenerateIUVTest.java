@@ -120,4 +120,5 @@ class GenerateIUVTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatus());
         assertEquals("Unable to get a unique IUV", response.getBody());
     }
+
 }

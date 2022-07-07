@@ -59,7 +59,7 @@ public class GenerateIUV {
         
 			try {
 				String data = iuvService.generateValidIUV(organizationFiscalCode, body.getSegregationCode(), body.getAuxDigit());
-				return request.createResponseBuilder(HttpStatus.OK)
+				return request.createResponseBuilder(HttpStatus.CREATED)
 	                    .header(HEADER_KEY_CONTENT_TYPE, MediaType.APPLICATION_JSON)
 	                    .body(data)
 	                    .build();

@@ -56,14 +56,14 @@ class GenerateIUVTest {
         doReturn(builderMock).when(builderMock).body(anyString());
         
         HttpResponseMessage responseMock = mock(HttpResponseMessage.class);
-        doReturn(HttpStatus.OK).when(responseMock).getStatus();
+        doReturn(HttpStatus.CREATED).when(responseMock).getStatus();
         doReturn("validIUVString").when(responseMock).getBody();
         doReturn(responseMock).when(builderMock).build();
     	
     	HttpResponseMessage response = iuvFunction.run(requestMock, "777", context);
     	
     	// Asserts
-        assertEquals(HttpStatus.OK, response.getStatus());
+        assertEquals(HttpStatus.CREATED, response.getStatus());
         assertEquals("validIUVString", response.getBody());
     }
     
@@ -120,4 +120,5 @@ class GenerateIUVTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatus());
         assertEquals("Unable to get a unique IUV", response.getBody());
     }
+
 }

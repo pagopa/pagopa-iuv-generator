@@ -22,6 +22,7 @@
         <mockito.version>4.6.1</mockito.version>
 		<commons.lang3.version>3.12.0</commons.lang3.version>
 		<lombok.version>1.18.24</lombok.version>
+		<junit.jupiter.version>5.8.2</junit.jupiter.version>
     </properties>
 
     <dependencies>
@@ -57,6 +58,12 @@
 		</dependency>
 
         <!-- Test START -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>

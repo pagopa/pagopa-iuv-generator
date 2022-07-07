@@ -22,6 +22,12 @@ public class IUVService {
     public IUVService(Logger logger) {
         this.logger = logger;
     }
+    
+    public IUVService(Logger logger, String storageConnectionString, String iuvsTable) {
+        this.logger = logger;
+        this.storageConnectionString = storageConnectionString;
+        this.iuvsTable = iuvsTable;
+    }
 	
 	public String generateValidIUV(String organizationFiscalCode, long segregationCode, long auxDigit) throws IuvGeneratorException, IllegalArgumentException  {
         int retryCount = 1;

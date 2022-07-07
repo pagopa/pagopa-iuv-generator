@@ -3,6 +3,7 @@ package it.gov.pagopa.iuvgenerator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -43,8 +44,8 @@ class GenerateIUVTest {
     void runOK() throws IllegalArgumentException, IuvGeneratorException {
     	Logger logger = Logger.getLogger("testlogging");
     	when(context.getLogger()).thenReturn(logger);
-    	when(iuvFunction.getIUVServiceInstance(logger)).thenReturn(iuvService);
-    	when(iuvService.generateValidIUV(anyString(), anyInt(), anyInt())).thenReturn("validIUVString");
+    	when(iuvFunction.getIUVServiceInstance(any())).thenReturn(iuvService);
+    	when(iuvService.generateValidIUV(anyString(), anyLong(), anyLong())).thenReturn("validIUVString");
     	
     	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(3L).segregationCode(47L).build());
     	
@@ -54,7 +55,7 @@ class GenerateIUVTest {
     	final HttpResponseMessage.Builder builderMock = mock(HttpResponseMessage.Builder.class);
     	doReturn(builderMock).when(requestMock).createResponseBuilder(any(HttpStatus.class));
         doReturn(builderMock).when(builderMock).header(anyString(), anyString());
-        doReturn(builderMock).when(builderMock).body(anyString());
+        doReturn(builderMock).when(builderMock).body(any());
         
         HttpResponseMessage responseMock = mock(HttpResponseMessage.class);
         doReturn(HttpStatus.CREATED).when(responseMock).getStatus();
@@ -72,8 +73,8 @@ class GenerateIUVTest {
     void runOK_OneDigitSegregationCode() throws IllegalArgumentException, IuvGeneratorException {
     	Logger logger = Logger.getLogger("testlogging");
     	when(context.getLogger()).thenReturn(logger);
-    	when(iuvFunction.getIUVServiceInstance(logger)).thenReturn(iuvService);
-    	when(iuvService.generateValidIUV(anyString(), anyInt(), anyInt())).thenReturn("validIUVString");
+    	when(iuvFunction.getIUVServiceInstance(any())).thenReturn(iuvService);
+    	when(iuvService.generateValidIUV(anyString(), anyLong(), anyLong())).thenReturn("validIUVString");
     	
     	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(7L).segregationCode(5L).build());
     	
@@ -83,7 +84,7 @@ class GenerateIUVTest {
     	final HttpResponseMessage.Builder builderMock = mock(HttpResponseMessage.Builder.class);
     	doReturn(builderMock).when(requestMock).createResponseBuilder(any(HttpStatus.class));
         doReturn(builderMock).when(builderMock).header(anyString(), anyString());
-        doReturn(builderMock).when(builderMock).body(anyString());
+        doReturn(builderMock).when(builderMock).body(any());
         
         HttpResponseMessage responseMock = mock(HttpResponseMessage.class);
         doReturn(HttpStatus.CREATED).when(responseMock).getStatus();
@@ -127,8 +128,8 @@ class GenerateIUVTest {
     void runKO_500() throws IllegalArgumentException, IuvGeneratorException {
     	Logger logger = Logger.getLogger("testlogging");
     	when(context.getLogger()).thenReturn(logger);
-    	when(iuvFunction.getIUVServiceInstance(logger)).thenReturn(iuvService);
-    	when(iuvService.generateValidIUV(anyString(), anyInt(), anyInt())).thenThrow(IuvGeneratorException.class);
+    	when(iuvFunction.getIUVServiceInstance(any())).thenReturn(iuvService);
+    	when(iuvService.generateValidIUV(anyString(), anyLong(), anyLong())).thenThrow(IuvGeneratorException.class);
     	
     	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(3L).segregationCode(47L).build());
     	

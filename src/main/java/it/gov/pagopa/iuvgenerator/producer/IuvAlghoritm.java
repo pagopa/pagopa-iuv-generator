@@ -1,10 +1,10 @@
-package it.gov.pagopa.debtposition.iuv.generator;
+package it.gov.pagopa.iuvgenerator.producer;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.regex.Pattern;
 
-import it.gov.pagopa.debtposition.iuv.exception.IuvGeneratorException;
+import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
 
 /**
  * IUV alghoritm abstract class

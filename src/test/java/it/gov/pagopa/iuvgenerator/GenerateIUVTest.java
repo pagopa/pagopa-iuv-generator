@@ -1,4 +1,4 @@
-package it.gov.pagopa.debtposition.iuv.function;
+package it.gov.pagopa.iuvgenerator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -22,9 +22,9 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
 
-import it.gov.pagopa.debtposition.iuv.exception.IuvGeneratorException;
-import it.gov.pagopa.debtposition.iuv.model.IuvGenerationModel;
-import it.gov.pagopa.debtposition.iuv.service.IUVService;
+import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
+import it.gov.pagopa.iuvgenerator.model.IuvGenerationModel;
+import it.gov.pagopa.iuvgenerator.service.IUVService;
 
 @ExtendWith(MockitoExtension.class)
 class GenerateIUVTest {
@@ -56,14 +56,14 @@ class GenerateIUVTest {
         doReturn(builderMock).when(builderMock).body(anyString());
         
         HttpResponseMessage responseMock = mock(HttpResponseMessage.class);
-        doReturn(HttpStatus.OK).when(responseMock).getStatus();
+        doReturn(HttpStatus.CREATED).when(responseMock).getStatus();
         doReturn("validIUVString").when(responseMock).getBody();
         doReturn(responseMock).when(builderMock).build();
     	
     	HttpResponseMessage response = iuvFunction.run(requestMock, "777", context);
     	
     	// Asserts
-        assertEquals(HttpStatus.OK, response.getStatus());
+        assertEquals(HttpStatus.CREATED, response.getStatus());
         assertEquals("validIUVString", response.getBody());
     }
     
@@ -120,4 +120,5 @@ class GenerateIUVTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatus());
         assertEquals("Unable to get a unique IUV", response.getBody());
     }
+
 }

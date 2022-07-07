@@ -1,8 +1,8 @@
-package it.gov.pagopa.debtposition.iuv.generator;
+package it.gov.pagopa.iuvgenerator.producer;
 
 import java.text.DecimalFormat;
 
-import it.gov.pagopa.debtposition.iuv.exception.IuvGeneratorException;
+import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
 
 /**
  * IUV code generation algorithm based on <code>auxDigit</code> = 3

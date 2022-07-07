@@ -1,4 +1,4 @@
-package it.gov.pagopa.debtposition.iuv.model;
+package it.gov.pagopa.iuvgenerator.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

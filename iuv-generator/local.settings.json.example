@@ -1,9 +1,0 @@
-{
-    "IsEncrypted": false,
-    "Values": {
-      "FUNCTIONS_WORKER_RUNTIME": "java",
-      "IUV_STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;AccountName=pagopa-d-weu-gps-cosmos-account-table;AccountKey=wrJyjI00NiA14fGK1MV6pdsMSuyDDmw1UPnidHp0Ud3MR20WM08HZmwDtFSUZ37l96AazA9vTKVTyNt5DW6nbQ==;TableEndpoint=https://pagopa-d-weu-gps-cosmos-account-table.table.cosmos.azure.com:443/;",
-      "IUV_STORAGE_TABLE": "iuvstable",
-      "IUV_MAX_RETRY_COUNT": "1"
-    }
- }

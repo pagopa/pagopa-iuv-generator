@@ -1,4 +1,4 @@
-package it.gov.pagopa.debtposition.iuv.function;
+package it.gov.pagopa.iuvgenerator;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,18 +18,18 @@ import com.microsoft.azure.functions.annotation.BindingName;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
-import it.gov.pagopa.debtposition.iuv.model.IuvGenerationModel;
-import it.gov.pagopa.debtposition.iuv.service.IUVService;
+import it.gov.pagopa.iuvgenerator.model.IuvGenerationModel;
+import it.gov.pagopa.iuvgenerator.service.IUVService;
 
 /**
- * Azure Functions with Azure Queue trigger.
+ * Azure Functions with Azure Http trigger.
  */
 public class GenerateIUV {
 	
 	private static final String HEADER_KEY_CONTENT_TYPE = "Content-Type";
 
     /**
-     * This function will be invoked when a new message is detected in the queue
+     * This function will be invoked when a Http Trigger occurs
      * @return
      */
     @FunctionName("GenerateIUV")
@@ -59,7 +59,7 @@ public class GenerateIUV {
         
 			try {
 				String data = iuvService.generateValidIUV(organizationFiscalCode, body.getSegregationCode(), body.getAuxDigit());
-				return request.createResponseBuilder(HttpStatus.OK)
+				return request.createResponseBuilder(HttpStatus.CREATED)
 	                    .header(HEADER_KEY_CONTENT_TYPE, MediaType.APPLICATION_JSON)
 	                    .body(data)
 	                    .build();

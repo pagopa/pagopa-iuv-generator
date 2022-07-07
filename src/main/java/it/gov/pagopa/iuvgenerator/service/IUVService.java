@@ -1,4 +1,4 @@
-package it.gov.pagopa.debtposition.iuv.service;
+package it.gov.pagopa.iuvgenerator.service;
 
 import java.util.logging.Logger;
 
@@ -7,15 +7,15 @@ import com.azure.data.tables.TableClientBuilder;
 import com.azure.data.tables.models.TableEntity;
 import com.azure.data.tables.models.TableServiceException;
 
-import it.gov.pagopa.debtposition.iuv.exception.IuvGeneratorException;
-import it.gov.pagopa.debtposition.iuv.generator.IuvCodeBusiness;
+import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
+import it.gov.pagopa.iuvgenerator.producer.IuvCodeBusiness;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class IUVService {
 	
-	private String storageConnectionString = System.getenv("IUV_STORAGE_CONNECTION_STRING") != null ? System.getenv("IUV_STORAGE_CONNECTION_STRING") : "";
-    private String iuvsTable = System.getenv("IUV_STORAGE_TABLE") != null ? System.getenv("IUV_STORAGE_TABLE") : "";
+	private String storageConnectionString = System.getenv("IUV_STORAGE_CONNECTION_STRING");
+    private String iuvsTable = System.getenv("IUV_STORAGE_TABLE");
     private int iuvMaxRetryCount = System.getenv("IUV_MAX_RETRY_COUNT") != null ? Integer.parseInt(System.getenv("IUV_MAX_RETRY_COUNT")) : 0;
     private Logger logger;
     
@@ -43,12 +43,7 @@ public class IUVService {
         return iuv;
     }
 	
-	
-	private String generateIUV(int segregationCode, int auxDigit) throws IuvGeneratorException {
-        return IuvCodeBusiness.generateIUV(segregationCode, auxDigit);
-    }
-	
-	private void checkIUVExistence (String partitionKey, String rowKey) throws TableServiceException, IllegalArgumentException {
+	public void checkIUVExistence (String partitionKey, String rowKey) throws TableServiceException, IllegalArgumentException {
 
         TableClient tableClient = new TableClientBuilder()
         .connectionString(storageConnectionString)
@@ -60,4 +55,10 @@ public class IUVService {
         tableClient.createEntity(iuvEntity);
 
     }
+	
+	private String generateIUV(int segregationCode, int auxDigit) throws IuvGeneratorException {
+        return IuvCodeBusiness.generateIUV(segregationCode, auxDigit);
+    }
+	
+	
 }

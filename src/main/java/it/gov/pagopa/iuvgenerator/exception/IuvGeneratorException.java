@@ -1,4 +1,4 @@
-package it.gov.pagopa.debtposition.iuv.exception;
+package it.gov.pagopa.iuvgenerator.exception;
 
 public class IuvGeneratorException extends Exception {
 

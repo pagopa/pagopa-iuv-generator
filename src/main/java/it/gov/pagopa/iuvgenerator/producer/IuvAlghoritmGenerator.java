@@ -1,6 +1,6 @@
-package it.gov.pagopa.debtposition.iuv.generator;
+package it.gov.pagopa.iuvgenerator.producer;
 
-import it.gov.pagopa.debtposition.iuv.exception.IuvGeneratorException;
+import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
 
 /**
  * IUV code generator with IUV alghoritm interface

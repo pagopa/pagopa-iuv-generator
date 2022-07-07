@@ -23,13 +23,13 @@ public class IUVService {
         this.logger = logger;
     }
 	
-	public String generateValidIUV(String paIdFiscalCode, int segregationCode, int auxDigit) throws IuvGeneratorException, IllegalArgumentException  {
+	public String generateValidIUV(String organizationFiscalCode, long segregationCode, long auxDigit) throws IuvGeneratorException, IllegalArgumentException  {
         int retryCount = 1;
         String iuv = null;
         while (true) {
             try {
-            	iuv = this.generateIUV(segregationCode, auxDigit);
-                this.checkIUVExistence(paIdFiscalCode,iuv);
+            	iuv = IuvCodeBusiness.generateIUV(segregationCode, auxDigit);
+                this.checkTableIUVUniqueness(organizationFiscalCode,iuv);
                 break;
             } catch (TableServiceException e) {
                 if (retryCount > iuvMaxRetryCount) {
@@ -43,7 +43,14 @@ public class IUVService {
         return iuv;
     }
 	
-	public void checkIUVExistence (String partitionKey, String rowKey) throws TableServiceException, IllegalArgumentException {
+	
+	/**
+	 * @param partitionKey: The organization fiscal code
+	 * @param rowKey: The generated iuv
+	 * @throws TableServiceException:  If an entity with the same partition key and row key alreadyexists within the table
+	 * @throws IllegalArgumentException:  If the provided entity is null
+	 */
+	public void checkTableIUVUniqueness  (String partitionKey, String rowKey) throws TableServiceException, IllegalArgumentException {
 
         TableClient tableClient = new TableClientBuilder()
         .connectionString(storageConnectionString)
@@ -54,11 +61,5 @@ public class IUVService {
         TableEntity iuvEntity = new TableEntity(partitionKey,rowKey);
         tableClient.createEntity(iuvEntity);
 
-    }
-	
-	private String generateIUV(int segregationCode, int auxDigit) throws IuvGeneratorException {
-        return IuvCodeBusiness.generateIUV(segregationCode, auxDigit);
-    }
-	
-	
+    }	
 }

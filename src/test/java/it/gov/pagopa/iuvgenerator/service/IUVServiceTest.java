@@ -26,15 +26,15 @@ class IUVServiceTest {
 
 	@Test
 	void generateValidIUV() throws IllegalArgumentException, IuvGeneratorException {
-		doNothing().when(iuvService).checkIUVExistence(anyString(),anyString());
+		doNothing().when(iuvService).checkTableIUVUniqueness(anyString(),anyString()); 
 		String iuv = iuvService.generateValidIUV("777", 47, 3);
 		assertEquals(17, iuv.length());
 	}
 	
 	@Test
-	void generateValidIUV_IuvGeneratorException() throws IllegalArgumentException, IuvGeneratorException {
+	void generateValidIUVKO_IuvGeneratorException() throws IllegalArgumentException, IuvGeneratorException {
 		HttpResponse responseMock = mock(HttpResponse.class);
-		doThrow(new TableServiceException ("duplicated entity", responseMock)).when(iuvService).checkIUVExistence(anyString(),anyString());
+		doThrow(new TableServiceException ("duplicated entity", responseMock)).when(iuvService).checkTableIUVUniqueness(anyString(),anyString());
 		try {
 			iuvService.generateValidIUV("777", 47, 3);
 			fail();

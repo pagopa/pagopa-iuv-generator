@@ -17,7 +17,7 @@ public interface IuvAlghoritmGenerator {
          * 
          * @return a new instance of <code>IuvAlghoritmGenerator</code>
          */
-        public IuvAlghoritmGenerator build(int auxDigit) {
+        public IuvAlghoritmGenerator build(long auxDigit) {
             return new IuvAlghoritmAuxDigit(auxDigit);
         }
     }
@@ -30,5 +30,5 @@ public interface IuvAlghoritmGenerator {
      * @return the IUV Code
      * @throws IuvGeneratorException 
      */
-    String generate(Integer segregationCode) throws IuvGeneratorException;
+    String generate(Long segregationCode) throws IuvGeneratorException;
 }

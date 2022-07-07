@@ -1,7 +1,5 @@
 package it.gov.pagopa.iuvgenerator.model;
 
-import javax.validation.constraints.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class IuvGenerationModel {
-	@NotNull
-	private Long segregationCode;
-	@NotNull
-	private Long auxDigit;
+public class IuvGenerationModelResponse {
+	private String iuv;
 }

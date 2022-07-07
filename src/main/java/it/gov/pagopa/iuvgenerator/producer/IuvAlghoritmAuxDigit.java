@@ -9,12 +9,12 @@ import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
  */
 public class IuvAlghoritmAuxDigit extends IuvAlghoritm {
 
-    private int auxDigit = 3;
+    private long auxDigit = 3;
 
     /**
      * Protected constructor
      */
-    protected IuvAlghoritmAuxDigit(int auxDigit) {
+    protected IuvAlghoritmAuxDigit(long auxDigit) {
         this.auxDigit = auxDigit;
     }
 
@@ -25,7 +25,7 @@ public class IuvAlghoritmAuxDigit extends IuvAlghoritm {
      * @throws IuvGeneratorException 
      */
     @Override
-    public String generate(Integer segregationCode) throws IuvGeneratorException {
+    public String generate(Long segregationCode) throws IuvGeneratorException {
         String segregationCodeString = new DecimalFormat("00").format(segregationCode);
         String iuvBase13Digits = generateIuv13Digits();
         String checkDigit = generateCheckDigit(String.valueOf(auxDigit) + segregationCodeString + iuvBase13Digits);

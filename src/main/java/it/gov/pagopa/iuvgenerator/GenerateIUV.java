@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.validation.constraints.NotBlank;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -19,6 +20,7 @@ import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
 import it.gov.pagopa.iuvgenerator.model.IuvGenerationModel;
+import it.gov.pagopa.iuvgenerator.model.IuvGenerationModelResponse;
 import it.gov.pagopa.iuvgenerator.service.IUVService;
 
 /**
@@ -38,7 +40,7 @@ public class GenerateIUV {
                     methods = {HttpMethod.POST},
                     route = "/organizations/{organizationfiscalcode}/iuv"
             ) HttpRequestMessage<Optional<IuvGenerationModel>> request,
-            @BindingName("organizationfiscalcode") String organizationFiscalCode,
+            @NotBlank @BindingName("organizationfiscalcode") String organizationFiscalCode,
             final ExecutionContext context) {
 
         Logger logger = context.getLogger();
@@ -58,10 +60,10 @@ public class GenerateIUV {
         IUVService iuvService = this.getIUVServiceInstance(logger);
         
 			try {
-				String data = iuvService.generateValidIUV(organizationFiscalCode, body.getSegregationCode(), body.getAuxDigit());
+				String validIUV = iuvService.generateValidIUV(organizationFiscalCode, body.getSegregationCode(), body.getAuxDigit());
 				return request.createResponseBuilder(HttpStatus.CREATED)
 	                    .header(HEADER_KEY_CONTENT_TYPE, MediaType.APPLICATION_JSON)
-	                    .body(data)
+	                    .body(IuvGenerationModelResponse.builder().iuv(validIUV).build())
 	                    .build();
 			} catch (Exception e) {
 				logger.log(Level.SEVERE, () -> "GenerateIUV error: " + e.getLocalizedMessage());

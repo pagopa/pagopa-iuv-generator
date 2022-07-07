@@ -24,6 +24,7 @@ import com.microsoft.azure.functions.HttpStatus;
 
 import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
 import it.gov.pagopa.iuvgenerator.model.IuvGenerationModel;
+import it.gov.pagopa.iuvgenerator.model.IuvGenerationModelResponse;
 import it.gov.pagopa.iuvgenerator.service.IUVService;
 
 @ExtendWith(MockitoExtension.class)
@@ -45,7 +46,7 @@ class GenerateIUVTest {
     	when(iuvFunction.getIUVServiceInstance(logger)).thenReturn(iuvService);
     	when(iuvService.generateValidIUV(anyString(), anyInt(), anyInt())).thenReturn("validIUVString");
     	
-    	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(3).segregationCode(47).build());
+    	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(3L).segregationCode(47L).build());
     	
     	HttpRequestMessage<Optional<IuvGenerationModel>> requestMock = mock(HttpRequestMessage.class);
     	doReturn(model).when(requestMock).getBody();
@@ -57,14 +58,43 @@ class GenerateIUVTest {
         
         HttpResponseMessage responseMock = mock(HttpResponseMessage.class);
         doReturn(HttpStatus.CREATED).when(responseMock).getStatus();
-        doReturn("validIUVString").when(responseMock).getBody();
+        doReturn(IuvGenerationModelResponse.builder().iuv("validIUVString").build()).when(responseMock).getBody();
         doReturn(responseMock).when(builderMock).build();
     	
     	HttpResponseMessage response = iuvFunction.run(requestMock, "777", context);
     	
     	// Asserts
         assertEquals(HttpStatus.CREATED, response.getStatus());
-        assertEquals("validIUVString", response.getBody());
+        assertEquals("IuvGenerationModelResponse(iuv=validIUVString)", response.getBody().toString());
+    }
+    
+    @Test
+    void runOK_OneDigitSegregationCode() throws IllegalArgumentException, IuvGeneratorException {
+    	Logger logger = Logger.getLogger("testlogging");
+    	when(context.getLogger()).thenReturn(logger);
+    	when(iuvFunction.getIUVServiceInstance(logger)).thenReturn(iuvService);
+    	when(iuvService.generateValidIUV(anyString(), anyInt(), anyInt())).thenReturn("validIUVString");
+    	
+    	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(7L).segregationCode(5L).build());
+    	
+    	HttpRequestMessage<Optional<IuvGenerationModel>> requestMock = mock(HttpRequestMessage.class);
+    	doReturn(model).when(requestMock).getBody();
+    	
+    	final HttpResponseMessage.Builder builderMock = mock(HttpResponseMessage.Builder.class);
+    	doReturn(builderMock).when(requestMock).createResponseBuilder(any(HttpStatus.class));
+        doReturn(builderMock).when(builderMock).header(anyString(), anyString());
+        doReturn(builderMock).when(builderMock).body(anyString());
+        
+        HttpResponseMessage responseMock = mock(HttpResponseMessage.class);
+        doReturn(HttpStatus.CREATED).when(responseMock).getStatus();
+        doReturn(IuvGenerationModelResponse.builder().iuv("validIUVString").build()).when(responseMock).getBody();
+        doReturn(responseMock).when(builderMock).build();
+    	
+    	HttpResponseMessage response = iuvFunction.run(requestMock, "777", context);
+    	
+    	// Asserts
+        assertEquals(HttpStatus.CREATED, response.getStatus());
+        assertEquals("IuvGenerationModelResponse(iuv=validIUVString)", response.getBody().toString());
     }
     
     @Test
@@ -100,7 +130,7 @@ class GenerateIUVTest {
     	when(iuvFunction.getIUVServiceInstance(logger)).thenReturn(iuvService);
     	when(iuvService.generateValidIUV(anyString(), anyInt(), anyInt())).thenThrow(IuvGeneratorException.class);
     	
-    	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(3).segregationCode(47).build());
+    	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(3L).segregationCode(47L).build());
     	
     	HttpRequestMessage<Optional<IuvGenerationModel>> requestMock = mock(HttpRequestMessage.class);
     	doReturn(model).when(requestMock).getBody();

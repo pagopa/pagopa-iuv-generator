@@ -3,12 +3,16 @@ package it.gov.pagopa.iuvgenerator.producer;
 import java.text.DecimalFormat;
 
 import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
+import lombok.NoArgsConstructor;
 
 /**
- * IUV code generation algorithm based on <code>auxDigit</code> = 3
+ * IUV code generation algorithm based on <code>auxDigit</code> (default = 3)
  */
+@lombok.Builder
+@NoArgsConstructor
 public class IuvAlghoritmAuxDigit extends IuvAlghoritm {
 
+	@lombok.Builder.Default
     private long auxDigit = 3;
 
     /**

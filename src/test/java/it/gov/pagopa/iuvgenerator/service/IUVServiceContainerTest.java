@@ -72,7 +72,6 @@ class IUVServiceContainerTest {
 		var iuvService = new IUVService(logger, storageConnectionString, "iuvsTable");
 		// first insert must be ok
 		iuvService.checkTableIUVUniqueness("partition", "row");
-		assertTrue(true);
 		try {
 			// second insert with same data must be throw TableServiceException
 			iuvService.checkTableIUVUniqueness("partition", "row");

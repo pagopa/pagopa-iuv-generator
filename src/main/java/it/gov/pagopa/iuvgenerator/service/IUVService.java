@@ -53,7 +53,7 @@ public class IUVService {
 	/**
 	 * @param partitionKey: The organization fiscal code
 	 * @param rowKey: The generated iuv
-	 * @throws TableServiceException:  If an entity with the same partition key and row key alreadyexists within the table
+	 * @throws TableServiceException:  If an entity with the same partition key and row key already exists within the table
 	 * @throws IllegalArgumentException:  If the provided entity is null
 	 */
 	public void checkTableIUVUniqueness  (String partitionKey, String rowKey) throws TableServiceException, IllegalArgumentException {

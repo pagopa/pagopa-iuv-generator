@@ -18,8 +18,9 @@ public class IuvCodeBusiness {
      * 
      */
     public static String generateIUV(Long segregationCode, Long auxDigit) {
-    	IuvAlghoritmGenerator iuvGenerator = IuvAlghoritmAuxDigit.builder().auxDigit(auxDigit).build();
-        return iuvGenerator.generate(segregationCode);
+    	IIuvAlghoritmGenerator iuvGenerator = 
+    			IuvAlghoritmAuxDigit.builder().auxDigit(auxDigit).segregationCode(segregationCode).build();
+        return iuvGenerator.generate();
     }
     
 }

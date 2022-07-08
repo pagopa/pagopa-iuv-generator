@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 /**
  * IUV alghoritm abstract class
  */
-public abstract class IuvAlghoritm implements IuvAlghoritmGenerator {
+public abstract class IuvAlghoritm implements IIuvAlghoritmGenerator {
 	
 	public static final String UNEXPECTED_GENERATED_VALUE_ERROR = "Unexpected generated value: ";
 

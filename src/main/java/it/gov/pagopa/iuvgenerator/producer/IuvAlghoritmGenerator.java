@@ -15,5 +15,5 @@ public interface IuvAlghoritmGenerator {
      * @return the IUV Code
      * @throws IuvGeneratorException 
      */
-    String generate(Long segregationCode) throws IuvGeneratorException;
+    String generate(Long segregationCode);
 }

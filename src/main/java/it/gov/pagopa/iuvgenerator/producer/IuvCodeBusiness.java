@@ -17,7 +17,7 @@ public class IuvCodeBusiness {
      * @throws IuvGeneratorException 
      * 
      */
-    public static String generateIUV(Long segregationCode, Long auxDigit) throws IuvGeneratorException {
+    public static String generateIUV(Long segregationCode, Long auxDigit) {
     	IuvAlghoritmGenerator iuvGenerator = IuvAlghoritmAuxDigit.builder().auxDigit(auxDigit).build();
         return iuvGenerator.generate(segregationCode);
     }

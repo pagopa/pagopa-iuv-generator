@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.regex.Pattern;
 
-import it.gov.pagopa.iuvgenerator.exception.IuvGeneratorException;
-
 /**
  * IUV alghoritm abstract class
  */
@@ -34,7 +32,7 @@ public abstract class IuvAlghoritm implements IuvAlghoritmGenerator {
      * Generates 13 digits IUV
      * 
      * @return the IUV base
-     * @throws IuvGeneratorException 
+     * @throws IllegalArgumentException 
      */
     protected String generateIuv13Digits() throws IllegalArgumentException {
 

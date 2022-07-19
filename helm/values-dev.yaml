@@ -8,6 +8,7 @@ microservice-chart:
     tag: "latest" #improve
     pullPolicy: Always
 
+  # TODO to check
   livenessProbe:
     httpGet:
       path: /actuator/health/liveness

@@ -5,13 +5,10 @@
 
 # Automatically triggered on PR
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema%2Cparameter-schema#pr-trigger
-trigger:
-  - main
-pr:
-  - main
+trigger: none
 
 pool:
-  vmImage: 'ubuntu-20.04'
+  vmImage: 'ubuntu-18.04'
 
 variables:
   MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
@@ -44,17 +41,17 @@ steps:
     displayName: 'Run Junit Test'
     inputs:
       mavenPomFile: 'pom.xml'
-      mavenOptions: '-Xmx3072m $(MAVEN_OPTS)'
-      mavenVersionOption: 'Default'
-      mavenAuthenticateFeed: false
-      javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.11'
+      goals: 'clean verify'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
-      goals: 'clean verify'
-      sonarQubeRunAnalysis: true
       codeCoverageToolOption: 'JaCoCo'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      mavenVersionOption: 'Default'
+      mavenOptions: '-Xmx3072m $(MAVEN_OPTS)'
+      mavenAuthenticateFeed: false
       effectivePomSkip: false
+      sonarQubeRunAnalysis: true
       isJacocoCoverageReportXML: true
       sqMavenPluginVersionChoice: 'latest'
 

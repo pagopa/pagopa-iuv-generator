@@ -85,7 +85,7 @@ microservice-chart:
     IUV_MAX_RETRY_COUNT: "1"
 
   envSecret:
-    IUV_STORAGE_CONNECTION_STRING: iuv-generator-cosmos-connection-string
+    IUV_STORAGE_CONNECTION_STRING: iuv-generator-cosmos-primary-connection-string
 
   keyvault:
     name: "pagopa-d-shared-kv"

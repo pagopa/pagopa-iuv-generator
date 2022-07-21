@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.validation.constraints.NotBlank;
 import javax.ws.rs.core.MediaType;
 
+import com.microsoft.azure.functions.annotation.AuthorizationLevel;
 import org.apache.commons.lang3.ObjectUtils;
 
 import com.microsoft.azure.functions.ExecutionContext;
@@ -26,6 +27,7 @@ import it.gov.pagopa.iuvgenerator.service.IUVService;
 /**
  * Azure Functions with Azure Http trigger.
  */
+
 public class GenerateIUV {
 
 	private static final String HEADER_KEY_CONTENT_TYPE = "Content-Type";
@@ -36,7 +38,7 @@ public class GenerateIUV {
 	 */
 	@FunctionName("GenerateIUV")
 	public HttpResponseMessage run (
-			@HttpTrigger(name = "GenerateIUVTrigger",
+			@HttpTrigger(name = "GenerateIUVTrigger", authLevel = AuthorizationLevel.ANONYMOUS,
 			methods = {HttpMethod.POST},
 			route = "/organizations/{organizationfiscalcode}/iuv"
 					) HttpRequestMessage<Optional<IuvGenerationModel>> request,

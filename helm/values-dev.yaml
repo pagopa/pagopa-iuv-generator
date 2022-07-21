@@ -8,19 +8,19 @@ microservice-chart:
     tag: "latest" #improve
     pullPolicy: Always
 
-  # TODO to check
+  # https://github.com/Azure/azure-functions-host/blob/dev/src/WebJobs.Script.WebHost/Controllers/HostController.cs
   livenessProbe:
     httpGet:
-      path: /actuator/health/liveness
-      port: 8080
+      path: /admin/host/status
+      port: 80
     initialDelaySeconds: 60
     failureThreshold: 6
     periodSeconds: 10
 
   readinessProbe:
     httpGet:
-      path: /actuator/health/readiness
-      port: 8080
+      path: /admin/host/status
+      port: 80
     initialDelaySeconds: 60
     failureThreshold: 6
     periodSeconds: 10
@@ -31,7 +31,7 @@ microservice-chart:
   service:
     create: true
     type: ClusterIP
-    port: 8080
+    port: 80
 
   ingress:
     create: true

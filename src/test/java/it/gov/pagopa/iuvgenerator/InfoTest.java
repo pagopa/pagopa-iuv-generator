@@ -34,14 +34,14 @@ class InfoTest {
     void runOK() throws IllegalArgumentException, IuvGeneratorException {
         // test precondition
         Logger logger = Logger.getLogger("info-test-logger");
-        when(context.getLogger()).thenReturn(logger);
+//        when(context.getLogger()).thenReturn(logger);
 
         final HttpResponseMessage.Builder builder = mock(HttpResponseMessage.Builder.class);
         HttpRequestMessage<Optional<String>> request = mock(HttpRequestMessage.class);
 
         doReturn(builder).when(request).createResponseBuilder(any(HttpStatus.class));
-        doReturn(builder).when(builder).header(anyString(), anyString());
-        doReturn(builder).when(builder).body(anyString());
+//        doReturn(builder).when(builder).header(anyString(), anyString());
+//        doReturn(builder).when(builder).body(anyString());
 
         HttpResponseMessage responseMock = mock(HttpResponseMessage.class);
         doReturn(HttpStatus.OK).when(responseMock).getStatus();

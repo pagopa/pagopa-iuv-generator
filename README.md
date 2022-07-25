@@ -1,9 +1,8 @@
-# pagoPA Functions template
+# pagoPA IUV Generator function
 
-Java template to create an Azure Function.
+## Api Documentation 📖
 
-## Function examples
-There is an example of a Http Trigger function.
+See the [OpenApi 3 here.](https://editor.swagger.io/?url=https://raw.githubusercontent.com/pagopa/pagopa-iuv-generator/main/openapi/openapi.json)
 
 ---
 

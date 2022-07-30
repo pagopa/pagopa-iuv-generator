@@ -2,12 +2,10 @@ microservice-chart:
   namespace: "shared"
   nameOverride: ""
   fullnameOverride: ""
-
   image:
     repository: pagopaucommonacr.azurecr.io/pagopaiuvgenerator
-    tag: "latest" #improve
+    tag: "0.0.1-9" #improve
     pullPolicy: Always
-
   # https://github.com/Azure/azure-functions-host/blob/dev/src/WebJobs.Script.WebHost/Controllers/HostController.cs
   livenessProbe:
     httpGet:
@@ -16,7 +14,6 @@ microservice-chart:
     initialDelaySeconds: 60
     failureThreshold: 6
     periodSeconds: 10
-
   readinessProbe:
     httpGet:
       path: /info
@@ -24,34 +21,26 @@ microservice-chart:
     initialDelaySeconds: 60
     failureThreshold: 6
     periodSeconds: 10
-
   deployment:
     create: true
-
   service:
     create: true
     type: ClusterIP
     port: 80
-
   ingress:
     create: true
     host: "weuuat.shared.internal.uat.platform.pagopa.it"
     path: /pagopa-iuv-generator-service/(.*)
-
   serviceAccount:
     create: false
     annotations: {}
     name: ""
-
   podAnnotations: {}
-
   podSecurityContext:
     seccompProfile:
       type: RuntimeDefault
-
   securityContext:
     allowPrivilegeEscalation: false
-
   resources:
     requests:
       memory: "500Mi"
@@ -59,7 +48,6 @@ microservice-chart:
     limits:
       memory: "500Mi"
       cpu: "350m"
-
   autoscaling:
     minReplica: 1
     maxReplica: 2
@@ -78,22 +66,15 @@ microservice-chart:
           # metricAggregationInterval: "-1:1:0"
           metricAggregationType: Count
           targetValue: "30"
-
   envConfig:
     FUNCTIONS_WORKER_RUNTIME: "java"
     IUV_STORAGE_TABLE: "iuvstable"
     IUV_MAX_RETRY_COUNT: "1"
-
   envSecret:
     IUV_STORAGE_CONNECTION_STRING: iuv-generator-cosmos-primary-connection-string
-
   keyvault:
     name: "pagopa-u-shared-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
-
   nodeSelector: {}
-
   tolerations: []
-
   affinity: {}
-

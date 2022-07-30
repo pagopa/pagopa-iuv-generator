@@ -1,0 +1,99 @@
+microservice-chart:
+  namespace: "shared"
+  nameOverride: ""
+  fullnameOverride: ""
+
+  image:
+    repository: pagopaucommonacr.azurecr.io/pagopaiuvgenerator
+    tag: "latest" #improve
+    pullPolicy: Always
+
+  # https://github.com/Azure/azure-functions-host/blob/dev/src/WebJobs.Script.WebHost/Controllers/HostController.cs
+  livenessProbe:
+    httpGet:
+      path: /info
+      port: 80
+    initialDelaySeconds: 60
+    failureThreshold: 6
+    periodSeconds: 10
+
+  readinessProbe:
+    httpGet:
+      path: /info
+      port: 80
+    initialDelaySeconds: 60
+    failureThreshold: 6
+    periodSeconds: 10
+
+  deployment:
+    create: true
+
+  service:
+    create: true
+    type: ClusterIP
+    port: 80
+
+  ingress:
+    create: true
+    host: "weuuat.shared.internal.uat.platform.pagopa.it"
+    path: /pagopa-iuv-generator-service/(.*)
+
+  serviceAccount:
+    create: false
+    annotations: {}
+    name: ""
+
+  podAnnotations: {}
+
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+
+  securityContext:
+    allowPrivilegeEscalation: false
+
+  resources:
+    requests:
+      memory: "500Mi"
+      cpu: "350m"
+    limits:
+      memory: "500Mi"
+      cpu: "350m"
+
+  autoscaling:
+    minReplica: 1
+    maxReplica: 2
+    pollingInterval: 30 # seconds
+    cooldownPeriod: 300 # seconds
+    triggers:
+      - type: azure-monitor
+        metadata:
+          tenantId: 7788edaf-0346-4068-9d79-c868aed15b3d
+          subscriptionId: 26abc801-0d8f-4a6e-ac5f-8e81bcc09112
+          resourceGroupName: pagopa-u-shared-sec-rg
+          resourceURI: Microsoft.KeyVault/vaults/pagopa-u-shared-kv
+          metricName: ServiceApiHit
+          # metricNamespace: Microsoft.KeyVault/vaults
+          # metricFilter: namespace eq 'default'
+          # metricAggregationInterval: "-1:1:0"
+          metricAggregationType: Count
+          targetValue: "30"
+
+  envConfig:
+    FUNCTIONS_WORKER_RUNTIME: "java"
+    IUV_STORAGE_TABLE: "iuvstable"
+    IUV_MAX_RETRY_COUNT: "1"
+
+  envSecret:
+    IUV_STORAGE_CONNECTION_STRING: iuv-generator-cosmos-primary-connection-string
+
+  keyvault:
+    name: "pagopa-u-shared-kv"
+    tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+

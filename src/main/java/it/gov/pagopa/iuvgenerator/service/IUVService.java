@@ -18,9 +18,11 @@ public class IUVService {
     private String iuvsTable = System.getenv("IUV_STORAGE_TABLE");
     private int iuvMaxRetryCount = System.getenv("IUV_MAX_RETRY_COUNT") != null ? Integer.parseInt(System.getenv("IUV_MAX_RETRY_COUNT")) : 0;
     private Logger logger;
-    
-    public IUVService(Logger logger) {
+    private String requestId = "";
+
+    public IUVService(Logger logger, String requestId) {
         this.logger = logger;
+        this.requestId = requestId;
     }
     
     public IUVService(Logger logger, String storageConnectionString, String iuvsTable) {
@@ -39,10 +41,10 @@ public class IUVService {
                 break;
             } catch (TableServiceException e) {
                 if (retryCount > iuvMaxRetryCount) {
-                	throw new IuvGeneratorException("Unable to get a unique IUV in " + iuvMaxRetryCount + " retry");   
+                	throw new IuvGeneratorException("Unable to get a unique IUV in " + iuvMaxRetryCount + " retry");
                 }
                 logger.warning(
-                        "Not unique IUV ["+iuv+"] in table ["+iuvsTable+"]: a new one will be generated [retry = "+retryCount+"]");
+                        "[requestId=" + requestId + "] Not unique IUV ["+iuv+"] in table ["+iuvsTable+"]: a new one will be generated [retry = "+retryCount+"]");
                 retryCount++;
             }
         }

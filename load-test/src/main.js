@@ -48,7 +48,7 @@ export default function (data) {
 	// Get creditor institutions
 	let response = organizationsIuvGen(rootUrl, __VU, 47, 3);
 	check(response, {
-		"status equals 200": response => response.status === 200,
+		"status equals 200": response => response.status === 201,
 		"body contains iuv": response => response.json().hasOwnProperty("iuv")
 	});
 

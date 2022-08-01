@@ -2,7 +2,7 @@
     "IsEncrypted": false,
     "Values": {
       "FUNCTIONS_WORKER_RUNTIME": "java",
-      "IUV_STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;......:443/;",
+      "IUV_STORAGE_CONNECTION_STRING": "DefaultEndpointsProtocol=https;AccountName=pagopa-d-weu-shared-iuv-gen-cosmos-account;<PUT_HERE_ACCOUNT_KEY>443/;",
       "IUV_STORAGE_TABLE": "iuvstable",
       "IUV_MAX_RETRY_COUNT": "1"
     },

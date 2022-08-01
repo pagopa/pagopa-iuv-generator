@@ -43,7 +43,7 @@ class GenerateIUVTest {
     void runOK() throws IllegalArgumentException, IuvGeneratorException {
     	Logger logger = Logger.getLogger("testlogging");
     	when(context.getLogger()).thenReturn(logger);
-    	when(iuvFunction.getIUVServiceInstance(any())).thenReturn(iuvService);
+    	when(iuvFunction.getIUVServiceInstance(any(), anyString())).thenReturn(iuvService);
     	when(iuvService.generateValidIUV(anyString(), anyLong(), anyLong())).thenReturn("validIUVString");
     	
     	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(3L).segregationCode(47L).build());
@@ -72,7 +72,7 @@ class GenerateIUVTest {
     void runOK_OneDigitSegregationCode() throws IllegalArgumentException, IuvGeneratorException {
     	Logger logger = Logger.getLogger("testlogging");
     	when(context.getLogger()).thenReturn(logger);
-    	when(iuvFunction.getIUVServiceInstance(any())).thenReturn(iuvService);
+    	when(iuvFunction.getIUVServiceInstance(any(), anyString())).thenReturn(iuvService);
     	when(iuvService.generateValidIUV(anyString(), anyLong(), anyLong())).thenReturn("validIUVString");
     	
     	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(7L).segregationCode(5L).build());
@@ -127,7 +127,7 @@ class GenerateIUVTest {
     void runKO_500() throws IllegalArgumentException, IuvGeneratorException {
     	Logger logger = Logger.getLogger("testlogging");
     	when(context.getLogger()).thenReturn(logger);
-    	when(iuvFunction.getIUVServiceInstance(any())).thenReturn(iuvService);
+    	when(iuvFunction.getIUVServiceInstance(any(), anyString())).thenReturn(iuvService);
     	when(iuvService.generateValidIUV(anyString(), anyLong(), anyLong())).thenThrow(IuvGeneratorException.class);
     	
     	Optional<IuvGenerationModel> model = Optional.ofNullable(IuvGenerationModel.builder().auxDigit(3L).segregationCode(47L).build());

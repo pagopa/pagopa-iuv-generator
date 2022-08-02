@@ -167,6 +167,12 @@ stages:
       - job: Serving_helm
         displayName: Serving_helm
         steps:
+
+          - script: |
+              echo "Checkout on $(SOURCE_BRANCH)"
+              git checkout $(SOURCE_BRANCH)
+            displayName: Checkout on source branch
+
           - task: PublishPipelineArtifact@1
             displayName: 'Publish Artifact manifests'
             condition: succeeded()

@@ -98,6 +98,11 @@ stages:
             clean: true
             persistCredentials: true
 
+          - script: |
+              echo "Checkout on $(SOURCE_BRANCH)"
+              git checkout $(SOURCE_BRANCH)
+            displayName: Checkout on source branch
+
           - task: Bash@3
             displayName: Check Version and Branch
             inputs:
@@ -187,6 +192,11 @@ stages:
                 - checkout: self
                   clean: true
                   persistCredentials: true
+
+                - script: |
+                    echo "Checkout on $(SOURCE_BRANCH)"
+                    git checkout $(SOURCE_BRANCH)
+                  displayName: Checkout on source branch
 
                 - download: none
                 - task: DownloadPipelineArtifact@2

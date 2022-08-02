@@ -94,6 +94,10 @@ stages:
     jobs:
       - job: deployJava
         steps:
+          - checkout: self
+            clean: true
+            persistCredentials: true
+
           - task: Bash@3
             displayName: Check Version and Branch
             inputs:
@@ -180,6 +184,10 @@ stages:
           runOnce:
             deploy:
               steps:
+                - checkout: self
+                  clean: true
+                  persistCredentials: true
+
                 - download: none
                 - task: DownloadPipelineArtifact@2
                   inputs:

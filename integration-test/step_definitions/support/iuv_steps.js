@@ -24,7 +24,7 @@ When('the organization ask for a valid IUV', async function() {
 	iuv = responseToCheck.data.iuv;
 });
 
-When('the organization ask for a valid IUV with incorrect body request', async function() {
+When('the organization asks for a valid IUV with incorrect body request', async function() {
 	responseToCheck = await generateIUV(idOrg, { "segregationCode": "5" });
 	// save data
 	iuv = responseToCheck.data.iuv;

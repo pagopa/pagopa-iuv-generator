@@ -14,5 +14,5 @@ Feature: Create a valid IUV
   # Case KO: 400 BAD REQUEST  
   Scenario: An organization requests the generation of an IUV with bad body request
     Given an organization
-    When the organization ask for a valid IUV with incorrect body request
+    When the organization asks for a valid IUV with incorrect body request
     Then the organization gets the status code 400

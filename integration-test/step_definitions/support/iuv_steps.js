@@ -18,7 +18,7 @@ Given('an organization', async function() {
 });
 
 // When
-When('the organization ask for a valid IUV', async function() {
+When('the organization asks for a valid IUV', async function() {
 	responseToCheck = await generateIUV(idOrg, { "segregationCode": "5", "auxDigit": "7" });
 	// save data
 	iuv = responseToCheck.data.iuv;

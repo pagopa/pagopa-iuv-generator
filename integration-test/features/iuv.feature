@@ -3,8 +3,6 @@ Feature: Create a valid IUV
   # Health check: The service is up and running
   Background:
     Given IUV Generator Function running
-    When the organization ask for health check info
-    Then the organization gets the status code 200
 
   # Case OK
   Scenario: An organization requests the generation of an IUV

@@ -2,9 +2,5 @@
   "selfDiagnostics": {
     "destination": "console",
     "level": "INFO"
-  },
-  "role": {
-    "name": "pagopa-iuv-generator",
-    "instance": "pagopa-iuv-generator"
   }
 }

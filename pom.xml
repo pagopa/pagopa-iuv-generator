@@ -6,7 +6,7 @@
 
 	<groupId>it.gov.pagopa.iuvgenerator</groupId>
 	<artifactId>function</artifactId>
-	<version>0.0.1-17</version>
+	<version>0.0.1-18</version>
 	<packaging>jar</packaging>
 
 	<name>IUV Generator Function</name>

@@ -39,3 +39,5 @@ bin/
 obj/
 
 helm/charts/*
+/openapi/config.yaml
+/openapi/uat_dash.json
